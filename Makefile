@@ -10,13 +10,13 @@ DATE=2020-05-31
 # Host OS and release (override if you are cross-compiling)
 HOST=
 RELEASE=
-CROSS_COMPILE=
+CROSS_COMPILE=arm-linux-gnueabi-
 
 # Support for compressed pci.ids (yes/no, default: detect)
-ZLIB=
+ZLIB=no
 
 # Support for resolving ID's by DNS (yes/no, default: detect)
-DNS=
+DNS=no
 
 # Build libpci as a shared library (yes/no; or local for testing; requires GCC)
 SHARED=no
@@ -108,7 +108,7 @@ example$(EXEEXT): example.o lib/$(PCILIB)
 example.o: example.c $(PCIINC)
 
 %$(EXEEXT): %.o
-	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LDLIBS) -o $@
+	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LDLIBS) -o $@ -static
 
 %.8 %.7 %.5: %.man
 	M=`echo $(DATE) | sed 's/-01-/-January-/;s/-02-/-February-/;s/-03-/-March-/;s/-04-/-April-/;s/-05-/-May-/;s/-06-/-June-/;s/-07-/-July-/;s/-08-/-August-/;s/-09-/-September-/;s/-10-/-October-/;s/-11-/-November-/;s/-12-/-December-/;s/\(.*\)-\(.*\)-\(.*\)/\3 \2 \1/'` ; sed <$< >$@ "s/@TODAY@/$$M/;s/@VERSION@/pciutils-$(VERSION)/;s#@IDSDIR@#$(IDSDIR)#;s#@PCI_IDS@#$(PCI_IDS)#"

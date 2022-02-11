@@ -6,7 +6,7 @@
  *	Can be freely distributed and used under the terms of the GNU GPL.
  */
 
-#include <sys/io.h>
+#include "io.h"
 
 static int
 intel_setup_io(struct pci_access *a UNUSED)
